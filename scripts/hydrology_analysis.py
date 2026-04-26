@@ -32,3 +32,38 @@ outline = outline.to_crs(target_crs)
 # 4. Column names
 # ---------------------------------------------------------
 county_name_field = "CountyName"
+# ---------------------------------------------------------
+# 5. River length per county
+# ---------------------------------------------------------
+rivers_clip = gpd.overlay(
+    rivers,
+    counties[[county_name_field, "geometry"]],
+    how="intersection"
+)
+
+rivers_clip["river_length_km"] = rivers_clip.geometry.length / 1000
+
+river_summary = (
+    rivers_clip
+    .groupby(county_name_field)["river_length_km"]
+    .sum()
+    .reset_index()
+)
+
+# ---------------------------------------------------------
+# 6. Water area per county
+# ---------------------------------------------------------
+water_clip = gpd.overlay(
+    water,
+    counties[[county_name_field, "geometry"]],
+    how="intersection"
+)
+
+water_clip["water_area_km2"] = water_clip.geometry.area / 1_000_000
+
+water_summary = (
+    water_clip
+    .groupby(county_name_field)["water_area_km2"]
+    .sum()
+    .reset_index()
+)
