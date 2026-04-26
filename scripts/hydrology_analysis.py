@@ -67,3 +67,34 @@ water_summary = (
     .sum()
     .reset_index()
 )
+# ---------------------------------------------------------
+# 7. Merge results
+# ---------------------------------------------------------
+counties["county_area_km2"] = counties.geometry.area / 1_000_000
+
+results = counties[[county_name_field, "county_area_km2", "geometry"]].merge(
+    river_summary,
+    on=county_name_field,
+    how="left"
+)
+
+results = results.merge(
+    water_summary,
+    on=county_name_field,
+    how="left"
+)
+
+results["river_length_km"] = results["river_length_km"].fillna(0)
+results["water_area_km2"] = results["water_area_km2"].fillna(0)
+
+# ---------------------------------------------------------
+# 8. Calculate metrics
+# ---------------------------------------------------------
+results["river_density_km_per_km2"] = (
+    results["river_length_km"] / results["county_area_km2"]
+)
+
+results["water_coverage_percent"] = (
+    results["water_area_km2"] / results["county_area_km2"] * 100
+)
+
