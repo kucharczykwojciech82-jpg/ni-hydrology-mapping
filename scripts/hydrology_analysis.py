@@ -28,4 +28,7 @@ counties = counties.to_crs(target_crs)
 rivers = rivers.to_crs(target_crs)
 water = water.to_crs(target_crs)
 outline = outline.to_crs(target_crs)
-
+# ---------------------------------------------------------
+# 4. Column names
+# ---------------------------------------------------------
+county_name_field = "CountyName"
