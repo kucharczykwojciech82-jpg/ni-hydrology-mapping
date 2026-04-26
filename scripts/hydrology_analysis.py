@@ -19,4 +19,13 @@ counties = gpd.read_file(counties_file)
 rivers = gpd.read_file(rivers_file)
 water = gpd.read_file(water_file)
 outline = gpd.read_file(outline_file)
+# ---------------------------------------------------------
+# 3. Reproject to UTM (metres)
+# ---------------------------------------------------------
+target_crs = "EPSG:32629"
+
+counties = counties.to_crs(target_crs)
+rivers = rivers.to_crs(target_crs)
+water = water.to_crs(target_crs)
+outline = outline.to_crs(target_crs)
 
