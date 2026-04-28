@@ -3,6 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+pd.set_option("display.max_columns", None)
+pd.set_option("display.width", 120)
+
 # ---------------------------------------------------------
 # 1. Set data folder
 # ---------------------------------------------------------
