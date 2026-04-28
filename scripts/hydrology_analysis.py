@@ -97,4 +97,32 @@ results["river_density_km_per_km2"] = (
 results["water_coverage_percent"] = (
     results["water_area_km2"] / results["county_area_km2"] * 100
 )
+# ---------------------------------------------------------
+# 9. Print results (TABLE)
+# ---------------------------------------------------------
+print("\nHydrology results by county:\n")
 
+print(
+    results[
+        [
+            county_name_field,
+            "river_length_km",
+            "water_area_km2",
+            "river_density_km_per_km2",
+            "water_coverage_percent"
+        ]
+    ].round(2)
+)
+
+# ---------------------------------------------------------
+# 10. Key finding
+# ---------------------------------------------------------
+top_county = results.loc[
+    results["river_density_km_per_km2"].idxmax()
+]
+
+print("\nCounty with the most river coverage:")
+print(
+    f"{top_county[county_name_field]} "
+    f"with {top_county['river_density_km_per_km2']:.2f} km of river per km²"
+)
