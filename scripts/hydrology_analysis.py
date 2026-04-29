@@ -129,3 +129,13 @@ print(
     f"{top_county[county_name_field]} "
     f"with {top_county['river_density_km_per_km2']:.2f} km of river per km²"
 )
+# ---------------------------------------------------------
+# 11. Save results
+# ---------------------------------------------------------
+output_dir = Path("outputs")
+output_dir.mkdir(exist_ok=True)
+
+results.drop(columns="geometry").to_csv(
+    output_dir / "hydrology_results_by_county.csv",
+    index=False
+)
