@@ -189,3 +189,19 @@ ax.set_axis_off()
 plt.tight_layout()
 plt.savefig(output_dir / "rivers_and_water_map.png", dpi=300)
 plt.show()
+# ---------------------------------------------------------
+# 13. Optional bar chart
+# ---------------------------------------------------------
+results.sort_values("river_length_km").plot(
+    x=county_name_field,
+    y="river_length_km",
+    kind="barh",
+    figsize=(8, 6),
+    legend=False,
+    title="River Length by County"
+)
+
+plt.xlabel("River Length (km)")
+plt.tight_layout()
+plt.savefig(output_dir / "river_length_chart.png", dpi=300)
+plt.show()
