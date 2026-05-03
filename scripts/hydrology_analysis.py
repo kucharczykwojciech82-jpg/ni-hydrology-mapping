@@ -139,3 +139,53 @@ results.drop(columns="geometry").to_csv(
     output_dir / "hydrology_results_by_county.csv",
     index=False
 )
+# ---------------------------------------------------------
+# 12. Create map
+# ---------------------------------------------------------
+fig, ax = plt.subplots(figsize=(10, 10))
+
+results.plot(
+    ax=ax,
+    column="river_density_km_per_km2",
+    cmap="YlGn",
+    edgecolor="black",
+    linewidth=0.8,
+    legend=True,
+    legend_kwds={
+        "label": "River density (km per km²)",
+        "shrink": 0.7
+    }
+)
+
+water.plot(
+    ax=ax,
+    color="lightskyblue",
+    edgecolor="deepskyblue",
+    linewidth=0.4,
+    alpha=0.8
+)
+
+rivers.plot(
+    ax=ax,
+    color="royalblue",
+    linewidth=0.6,
+    alpha=0.8
+)
+
+outline.boundary.plot(
+    ax=ax,
+    color="black",
+    linewidth=1.2
+)
+
+for idx, row in results.iterrows():
+    x = row.geometry.centroid.x
+    y = row.geometry.centroid.y
+    ax.text(x, y, row[county_name_field], fontsize=8, ha="center")
+
+ax.set_title("Rivers and Water Bodies in Northern Ireland", fontsize=16)
+ax.set_axis_off()
+
+plt.tight_layout()
+plt.savefig(output_dir / "rivers_and_water_map.png", dpi=300)
+plt.show()
