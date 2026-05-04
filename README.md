@@ -31,7 +31,7 @@ Installation
 
 Conda
 conda env create -f environment.yml
-conda activate ni-hydrology
+conda activate ni-hydrology-mapping
 
 Usage
 
