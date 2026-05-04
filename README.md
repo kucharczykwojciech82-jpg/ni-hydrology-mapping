@@ -30,19 +30,19 @@ Outputs:
 Installation
 
 Conda
-conda env create -f environment.yml
-conda activate ni-hydrology-mapping
+-conda env create -f environment.yml
+-conda activate ni-hydrology-mapping
 
 Usage
 
-python scripts/hydrology_analysis.py
+-python scripts/hydrology_analysis.py
 
 Technologies
 
-Python
-GeoPandas
-Matplotlib
-Pandas
+-Python
+-GeoPandas
+-Matplotlib
+-Pandas
 
 License
 
